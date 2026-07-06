@@ -578,39 +578,35 @@ footer p{ color: var(--text-muted); font-size:13px; }
       <div class="eyebrow">GET IN TOUCH</div>
       <h2 style="font-size:clamp(26px,3.4vw,36px); margin-bottom:16px;">Let's cut something together.</h2>
       <p style="color:var(--text-muted); line-height:1.7; max-width:420px;">Send over your clips and the vibe you're going for — I'll reply within a day with availability and a quote.</p>
-      <!-- Replace href="#" below with your real profile links -->
       <div class="social-row">
         <a href="https://www.instagram.com/visualgrowyt?igsh=MTI4aGk5NGxseTM0bw==" class="glass-card social-btn" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>
         <a href="https://youtube.com/@crystalixeditz?si=nHxLWb8ThLiS5syw"class="glass-card social-btn" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9l5 3-5 3z" fill="currentColor" stroke="none"/></svg></a>
       </div>
     </div>
 
-    <form class="glass-card form" id="contactForm">
+    <form class="glass-card form" action="mailto:crystalixeditzofficial@gmail.com" method="GET" enctype="text/plain">
       <div class="field">
         <label for="name">Name</label>
-        <input type="text" id="name" required placeholder="Your name">
+        <input type="text" id="name" name="Name" required placeholder="Your name">
       </div>
       <div class="field">
         <label for="email">Email or Discord</label>
-        <input type="text" id="email" required placeholder="you@example.com">
+        <input type="text" id="email" name="Email_or_Discord" required placeholder="you@example.com">
       </div>
       <div class="field">
         <label for="type">Project type</label>
-        <select id="type">
+        <select id="type" name="Project_Type">
           <option>Motion Graphics</option>
           <option>Normal Reel Edit</option>
-           <option>Video Editing</option> 
-            <option>Ad</option>
-             <option>other</option>
-</select>
+          <option>Video Editing</option> 
+          <option>Ad</option>
+          <option>other</option>
+        </select>
       </div>
       <div class="field">
         <label for="message">Tell me about the project</label>
-        <textarea id="message" required placeholder="Clip links, style references, deadline..."></textarea>
+        <textarea id="message" name="Message" required placeholder="Clip links, style references, deadline..."></textarea>
       </div>
-      <!-- This form opens the visitor's email client with the details pre-filled.
-           Replace Crystalixeditz@gmail.com with your real inbox, or swap this
-           for a service like Formspree if you'd rather receive submissions directly. -->
       <button type="submit" class="btn btn--prism">Send message</button>
     </form>
   </div>
@@ -662,18 +658,6 @@ footer p{ color: var(--text-muted); font-size:13px; }
       }
       document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
     });
-  });
-
-  // Contact form -> mailto handoff
-  document.getElementById('contactForm').addEventListener('submit', function (e) {
-    e.preventDefault();
-    var name = document.getElementById('name').value;
-    var email = document.getElementById('email').value;
-    var type = document.getElementById('type').value;
-    var message = document.getElementById('message').value;
-    var subject = encodeURIComponent('New project inquiry: ' + type);
-    var body = encodeURIComponent('Name: ' + name + '\nEmail/Discord: ' + email + '\nProject type: ' + type + '\n\n' + message);
-    window.location.href = 'mailto:crystalixeditzofficial@gmail.com?subject=' + subject + '&body=' + body;
   });
 </script>
 
