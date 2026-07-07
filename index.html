@@ -260,35 +260,15 @@ section{ padding: 110px 0; position:relative; }
 .reel-card{ overflow:hidden; transition: transform 0.3s ease, border-color 0.3s ease; flex:1 1 300px; max-width:360px; }
 .reel-card:hover{ transform: translateY(-6px); border-color: var(--cyan); }
 .reel-thumb{
-  position:relative; height: 190px; display:flex; align-items:center; justify-content:center;
+  position:relative; height: auto; display:flex; align-items:center; justify-content:center;
 }
-/* Replace these gradients with your own thumbnail <img> or <video poster> — see comment below */
-.grad-1{ background: linear-gradient(135deg, #1e3a5f, var(--cyan), var(--violet)); }
-.grad-2{ background: linear-gradient(135deg, #4a1942, var(--pink), #ffb37a); }
-.grad-3{ background: linear-gradient(135deg, #0f2b3d, var(--blue), var(--cyan)); }
-.grad-4{ background: linear-gradient(135deg, #2a1245, var(--violet), var(--pink)); }
-.grad-5{ background: linear-gradient(135deg, #0e2f2c, var(--cyan), var(--blue)); }
-.grad-6{ background: linear-gradient(135deg, #331a3d, var(--pink), var(--violet)); }
 
 .reel-tag{
   position:absolute; top:12px; left:12px; padding:5px 10px; border-radius:100px;
-  background: rgba(10,10,19,0.55); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+  background: rgba(10,10,19,0.75); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
   font-family:'Space Mono', monospace; font-size:10.5px; letter-spacing:0.06em;
-  border:1px solid var(--glass-border);
+  border:1px solid var(--glass-border); z-index: 2;
 }
-.reel-time{
-  position:absolute; bottom:12px; right:12px; padding:4px 9px; border-radius:6px;
-  background: rgba(10,10,19,0.6); font-family:'Space Mono', monospace; font-size:11px;
-}
-.play-btn{
-  width:54px; height:54px; border-radius:50%;
-  background: rgba(255,255,255,0.18); border:1px solid rgba(255,255,255,0.4);
-  -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
-  display:flex; align-items:center; justify-content:center;
-  transition: transform 0.25s ease, background 0.25s ease;
-}
-.reel-card:hover .play-btn{ transform: scale(1.12); background: rgba(255,255,255,0.28); }
-.play-btn svg{ width:16px; height:16px; margin-left:2px; }
 
 .reel-info{ padding: 16px 18px 20px; }
 .reel-info h3{ font-size:16px; font-weight:600; margin-bottom:8px; }
@@ -331,21 +311,6 @@ section{ padding: 110px 0; position:relative; }
 @media (max-width: 900px){ .services{ grid-template-columns:1fr; } }
 
 /* ============================================================
-   TESTIMONIALS
-   ============================================================ */
-.testimonials{ display:grid; grid-template-columns: repeat(3,1fr); gap:24px; }
-.testi-card{ padding: 28px 24px; }
-.testi-card p{ font-size:15px; line-height:1.7; color: var(--text); margin-bottom:20px; }
-.testi-who{ display:flex; align-items:center; gap:10px; }
-.testi-avatar{
-  width:36px; height:36px; border-radius:50%; background: var(--prism); flex-shrink:0;
-}
-.testi-name{ font-size:13.5px; font-weight:700; }
-.testi-role{ font-size:12px; color: var(--text-muted); }
-
-@media (max-width: 900px){ .testimonials{ grid-template-columns:1fr; } }
-
-/* ============================================================
    CONTACT
    ============================================================ */
 .contact__inner{ display:grid; grid-template-columns: 0.9fr 1.1fr; gap: 50px; }
@@ -355,6 +320,7 @@ section{ padding: 110px 0; position:relative; }
   display:flex; align-items:center; justify-content:center;
   border:1px solid var(--glass-border); background: var(--glass);
   transition: transform 0.2s ease, border-color 0.2s ease;
+  cursor: pointer;
 }
 .social-btn:hover{ transform: translateY(-3px); border-color: var(--cyan); }
 .social-btn svg{ width:19px; height:19px; }
@@ -376,6 +342,38 @@ section{ padding: 110px 0; position:relative; }
 .form .btn{ align-self:flex-start; border:none; }
 
 @media (max-width: 860px){ .contact__inner{ grid-template-columns:1fr; } }
+
+/* ============================================================
+   CUSTOM POPUP MODAL (BRAND SELECTOR)
+   ============================================================ */
+.brand-modal{
+  position: fixed; inset: 0; z-index: 999;
+  background: rgba(10,10,19,0.85); -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px);
+  display: flex; align-items: center; justify-content: center; padding: 20px;
+  opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
+}
+.brand-modal.is-active{ opacity: 1; pointer-events: all; }
+.brand-modal__content{
+  max-width: 500px; width: 100%; padding: 32px; text-align: center; position: relative;
+}
+.brand-modal__close{
+  position: absolute; top: 16px; right: 20px; background: none; border: none;
+  color: var(--text-muted); font-size: 24px; transition: color 0.2s ease;
+}
+.brand-modal__close:hover{ color: var(--text); }
+.brand-modal__title{ font-size: 20px; font-weight: 700; margin-bottom: 8px; }
+.brand-modal__desc{ font-size: 14px; color: var(--text-muted); margin-bottom: 24px; }
+.brand-options{ display: flex; flex-direction: column; gap: 14px; }
+.brand-option-btn{
+  width: 100%; text-align: left; padding: 16px 20px; display: flex; flex-direction: column; gap: 4px;
+  background: rgba(255,255,255,0.04); border: 1px solid var(--glass-border); border-radius: 12px;
+  transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+.brand-option-btn:hover{
+  transform: translateY(-2px); border-color: var(--cyan); background: rgba(255,255,255,0.08);
+}
+.brand-option-btn strong{ font-family: 'Unbounded', sans-serif; font-size: 14px; color: var(--text); }
+.brand-option-btn span{ font-size: 12.5px; color: var(--text-muted); }
 
 /* ============================================================
    FOOTER
@@ -421,9 +419,9 @@ footer p{ color: var(--text-muted); font-size:13px; }
     <div>
       <div class="eyebrow">VIDEO EDITOR | REELS EDITOR | MOTION GRAPHICS</div>
       <h1 class="hero__title">Edits that hit<br><span class="shine">different.</span></h1>
-      <p class="hero__sub">I turn raw clips into fast cuts, beat synced edits— tech and finance videos/reels edit, built for the algorithm.</p>
+      <p class="hero__sub">I turn raw clips into fast cuts, beat synced edits— tech, finance, etc. videos/reels edit, built for the algorithm.</p>
       <div class="hero__actions">
-        <a href="https://www.instagram.com/visualgrowyt?igsh=MTI4aGk5NGxseTM0bw==" target="_blank" rel="noopener" class="btn btn--prism">Watch the reel</a>
+        <a href="#" class="btn btn--prism trigger-brand" data-platform="instagram">Watch the reel</a>
         <a href="#contact" class="btn btn--ghost">Commission an edit</a>
       </div>
     </div>
@@ -444,8 +442,8 @@ footer p{ color: var(--text-muted); font-size:13px; }
       <div class="eyebrow">00:00 — WHO'S EDITING</div>
       <h2 style="font-size:clamp(26px,3.4vw,36px); margin-bottom:22px;">Turning raw footage into edits people rewatch.</h2>
       <div class="about__body">
-        <p>I'm Crystalix — a reels and video editor who edits finance and tech content into short-form videos built to be rewatched, not scrolled past. Every cut is timed to the beat, every transition earns its place.</p>
-        <p>I work in CapCut and Alight Motion, with a focus on clean, fast-paced edits for finance and tech creators.</p>
+        <p>I'm Crystalix — a reels and video editor who edits boring reels/videos into short-form videos built to be rewatched, not scrolled past. Every cut is timed to the beat, every transition earns its place.</p>
+        <p>I work in CapCut and Alight Motion, with a focus on clean, fast-paced edits for small creators</p>
       </div>
     </div>
     <div class="about__stats reveal">
@@ -455,7 +453,7 @@ footer p{ color: var(--text-muted); font-size:13px; }
       </div>
       <div class="glass-card stat">
         <span class="stat__time">00:30</span>
-        <div><div class="stat__num">5,018</div><div class="stat__label">Combined views on YouTube</div></div>
+        <div><div class="stat__num">5,022</div><div class="stat__label">Combined views on YouTube</div></div>
       </div>
       <div class="glass-card stat">
         <span class="stat__time">00:45</span>
@@ -473,19 +471,15 @@ footer p{ color: var(--text-muted); font-size:13px; }
       <h2>Recent cuts</h2>
     </div>
     <div class="reel-grid">
-      <!--
-        This card plays your uploaded video (reel-1.mp4, sitting next to this
-        index.html file). To add more later, just copy this whole <div> block,
-        give the new video file a different name, and update the src + title.
-      -->
+      <!-- Elon Musk Premium Edit Card -->
       <div class="glass-card reel-card reveal">
         <div class="reel-thumb" style="padding:0;">
-          <video src="reel-1.mp4" controls playsinline preload="metadata" style="width:100%;height:100%;object-fit:cover;background:#000;"></video>
-          <span class="reel-tag">FINANCE / TECH EDIT</span>
+          <video src="https://v.g00g1e.com/ai-input-videos/3a4731f8b3c94801.mp4" controls playsinline preload="metadata" style="width:100%; height:auto; display:block; object-fit:cover; background:#000; border-radius: var(--radius) var(--radius) 0 0;"></video>
+          <span class="reel-tag">FINANCE / INSIGHT EDIT</span>
         </div>
         <div class="reel-info">
-          <h3>Latest Edit</h3>
-          <div class="meta"><span class="soft-tag">CapCut</span><span class="soft-tag">Alight Motion</span></div>
+          <h3>Elon Musk Trillionaire Break</h3>
+          <div class="meta"><span class="soft-tag">CapCut</span><span class="soft-tag">Alight Motion</span><span class="soft-tag">Kinetic Typography</span></div>
         </div>
       </div>
     </div>
@@ -517,22 +511,22 @@ footer p{ color: var(--text-muted); font-size:13px; }
       <div class="glass-card service-card reveal">
         <h3>Tech Video Editing</h3>
         <p>Clean, fast-paced edits for tech reviews, unboxings, app walkthroughs and product demos — captions, sound design and smooth transitions included.</p>
-        <span class="service-price">FROM $15 · 24H DELIVERY</span>
-        <p style="font-size:12.5px; color:var(--text-muted); margin:-10px 0 18px;">Motion graphics videos: $25 · 48H delivery</p>
+        <span class="service-price">FROM $15 · 24H-48H DELIVERY</span>
+        <p style="font-size:12.5px; color:var(--text-muted); margin:-10px 0 18px;">Motion graphics videos: $25 · 24H-48H delivery</p>
         <button data-service="Video Edit">Book this</button>
       </div>
       <div class="glass-card service-card reveal">
         <h3>Finance Video Editing</h3>
         <p>Sharp, data-driven edits for finance breakdowns, market updates and investing content — clean graphics, captions and beat-synced cuts.</p>
-        <span class="service-price">FROM $15 · 24H DELIVERY</span>
-        <p style="font-size:12.5px; color:var(--text-muted); margin:-10px 0 18px;">Motion graphics videos: $25 · 48H delivery</p>
+        <span class="service-price">FROM $15 · 24H-48H DELIVERY</span>
+        <p style="font-size:12.5px; color:var(--text-muted); margin:-10px 0 18px;">Motion graphics videos: $25 · 24H-48H delivery</p>
         <button data-service="Video Edit">Book this</button>
       </div>
       <div class="glass-card service-card reveal">
-        <h3>Meme / Trend Edit</h3>
-        <p>Quick-turnaround short-form edits built around trending sounds and formats, optimized for Reels &amp; TikTok.</p>
+        <h3>Other/ADs</h3>
+        <p>Quick-turnaround short-form edits and ADs built around trending sounds and formats, optimized for Reels &amp; TikTok.</p>
         <span class="service-price">FROM $15 · 24–48H DELIVERY</span>
-        <button data-service="Meme / Trend Edit">Book this</button>
+        <button data-service="Other/ADs">Book this</button>
       </div>
     </div>
   </div>
@@ -546,8 +540,8 @@ footer p{ color: var(--text-muted); font-size:13px; }
       <h2 style="font-size:clamp(26px,3.4vw,36px); margin-bottom:16px;">Let's cut something together.</h2>
       <p style="color:var(--text-muted); line-height:1.7; max-width:420px;">Send over your clips and the vibe you're going for — I'll reply within a day with availability and a quote.</p>
       <div class="social-row">
-        <a href="https://www.instagram.com/visualgrowyt?igsh=MTI4aGk5NGxseTM0bw==" class="glass-card social-btn" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>
-        <a href="https://youtube.com/@crystalixeditz?si=nHxLWb8ThLiS5syw"class="glass-card social-btn" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9l5 3-5 3z" fill="currentColor" stroke="none"/></svg></a>
+        <a class="glass-card social-btn trigger-brand" data-platform="instagram" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>
+        <a class="glass-card social-btn trigger-brand" data-platform="youtube" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9l5 3-5 3z" fill="currentColor" stroke="none"/></svg></a>
       </div>
     </div>
 
@@ -566,7 +560,7 @@ footer p{ color: var(--text-muted); font-size:13px; }
           <option>Motion Graphics</option>
           <option>Normal Reel Edit</option>
           <option>Video Editing</option> 
-          <option>Ad</option>
+          <option>ADs</option>
           <option>other</option>
         </select>
       </div>
@@ -578,6 +572,25 @@ footer p{ color: var(--text-muted); font-size:13px; }
     </form>
   </div>
 </section>
+
+<!-- ============ BRAND SELECTOR MODAL POPUP ============ -->
+<div class="brand-modal" id="brandModal">
+  <div class="glass-card brand-modal__content">
+    <button class="brand-modal__close" id="closeModal">×</button>
+    <div class="brand-modal__title" id="modalTitle">Select Profile</div>
+    <div class="brand-modal__desc">Choose which workspace you'd like to check out</div>
+    <div class="brand-options">
+      <a href="#" id="optVisualGrow" target="_blank" rel="noopener" class="brand-option-btn">
+        <strong>visualgrowyt</strong>
+        <span id="descVisualGrow">Motion graphics, brand growth, and other edits</span>
+      </a>
+      <a href="#" id="optCrystalix" target="_blank" rel="noopener" class="brand-option-btn">
+        <strong>Crystalixeditz</strong>
+        <span id="descCrystalix">Main page for business enquiries &amp; anime/movie edits</span>
+      </a>
+    </div>
+  </div>
+</div>
 
 <footer>
   <div class="wrap" style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px;">
@@ -626,6 +639,37 @@ footer p{ color: var(--text-muted); font-size:13px; }
       document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
     });
   });
+
+  // Dynamic Brand Selector Modal Logic
+  var modal = document.getElementById('brandModal');
+  var closeModalBtn = document.getElementById('closeModal');
+  var optVisualGrow = document.getElementById('optVisualGrow');
+  var optCrystalix = document.getElementById('optCrystalix');
+  var modalTitle = document.getElementById('modalTitle');
+
+  // Open Modal with correct urls
+  document.querySelectorAll('.trigger-brand').forEach(function(el) {
+    el.addEventListener('click', function(e) {
+      e.preventDefault();
+      var platform = el.getAttribute('data-platform');
+      
+      if (platform === 'instagram') {
+        modalTitle.textContent = "Open Instagram Profile";
+        optVisualGrow.href = "https://www.instagram.com/visualgrowyt?igsh=MTI4aGk5NGxseTM0bw==";
+        optCrystalix.href = "https://www.instagram.com/crystalix_editz?igsh=c3poZXgzNjV1bzZy";
+      } else if (platform === 'youtube') {
+        modalTitle.textContent = "Open YouTube Channel";
+        optVisualGrow.href = "https://youtube.com/@visualgrowyt?si=bl4O_VJRlV54se25";
+        optCrystalix.href = "https://youtube.com/@crystalixeditz?si=PFuds1uCL75EeC9r";
+      }
+      
+      modal.classList.add('is-active');
+    });
+  });
+
+  // Close Modal
+  closeModalBtn.addEventListener('click', function() { modal.classList.remove('is-active'); });
+  modal.addEventListener('click', function(e) { if(e.target === modal) modal.classList.remove('is-active'); });
 </script>
 
 </body>
